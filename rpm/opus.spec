@@ -31,6 +31,13 @@ This package contains libraries and header files for developing applications tha
 %setup -q -n %{name}-%{version}/%{name}
 
 %build
+
+OPUS_VERSION=$(echo %{version} | cut -d + -f 1)
+cat > "package_version" <<EOF
+AUTO_UPDATE=no
+PACKAGE_VERSION="$OPUS_VERSION"
+EOF
+
 ./autogen.sh
 %configure \
     --enable-shared \
