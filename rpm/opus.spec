@@ -21,7 +21,7 @@ have historically used high latency formats such as MP3, AAC, or Vorbis.
 %package       devel
 Group:         Development/Libraries
 Summary:       Development files for %{name}
-Requires:      Requires: %{name} = %{version}-%{release}
+Requires:      %{name} = %{version}-%{release}
 Requires:      pkgconfig
 
 %description   devel
