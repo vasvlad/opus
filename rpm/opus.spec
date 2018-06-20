@@ -1,5 +1,5 @@
 Name:          opus
-Version:       1.1
+Version:       1.2.1
 Release:       0
 Summary:       A codec for interactive speech and audio transmission over the Internet
 Group:         Applications/Multimedia
