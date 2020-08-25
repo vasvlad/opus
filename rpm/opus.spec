@@ -1,11 +1,10 @@
-Name:          opus
-Version:       1.2.1
-Release:       0
-Summary:       A codec for interactive speech and audio transmission over the Internet
-Group:         Applications/Multimedia
-URL:           http://www.opus-codec.org
-Source:        http://downloads.xiph.org/releases/%{name}/%{name}-%{version}.tar.gz
-License:       BSD
+Name:     opus
+Summary:  An audio codec for use in low-delay speech and audio communication
+Version:  1.3.1
+Release:  1
+License:  BSD
+URL:      https://www.opus-codec.org/
+Source:   %{name}-%{version}.tar.gz
 
 %description
 Opus is a codec for interactive speech and audio transmission over the Internet.
@@ -18,36 +17,31 @@ for non-realtime  stored-file applications such as music distribution, game
 soundtracks, portable music players, jukeboxes, and other applications that
 have historically used high latency formats such as MP3, AAC, or Vorbis.
 
-%package       devel
-Group:         Development/Libraries
-Summary:       Development files for %{name}
-Requires:      %{name} = %{version}-%{release}
-Requires:      pkgconfig
+%package devel
+Summary:  Development files for %{name}
+Requires: %{name} = %{version}-%{release}
 
-%description   devel
+%description devel
 This package contains libraries and header files for developing applications that use %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -n %{name}-%{version}/%{name}
 
 %build
-
 OPUS_VERSION=$(echo %{version} | cut -d + -f 1)
 cat > "package_version" <<EOF
 AUTO_UPDATE=no
 PACKAGE_VERSION="$OPUS_VERSION"
 EOF
 
-./autogen.sh
-%configure \
+%reconfigure \
     --enable-shared \
     --disable-static \
     --enable-fixed-point \
-    --disable-float-api \
     --enable-custom-modes \
     --disable-doc
 
-make %{?jobs:-j%jobs}
+%make_build
 
 %check
 make check
@@ -60,11 +54,13 @@ make check
 
 %files
 %defattr(-,root,root)
+%license COPYING
 %{_libdir}/libopus.so.*
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/opus/opus*.h
+%doc README
+%{_includedir}/opus
 %{_libdir}/libopus.so
 %{_libdir}/pkgconfig/opus.pc
 %{_datadir}/aclocal/opus.m4
