@@ -1,6 +1,6 @@
 Name:     opus
 Summary:  An audio codec for use in low-delay speech and audio communication
-Version:  1.4
+Version:  1.5.1
 Release:  1
 License:  BSD
 URL:      https://www.opus-codec.org/
