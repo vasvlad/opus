@@ -1,3 +1,4 @@
+%define keepstatic 1
 Name:     opus
 Summary:  An audio codec for use in low-delay speech and audio communication
 Version:  1.5.1
@@ -24,6 +25,12 @@ Requires: %{name} = %{version}-%{release}
 %description devel
 This package contains libraries and header files for developing applications that use %{name}.
 
+%package devel-static
+Summary:  Development files for %{name}
+
+%description devel-static
+This package contains libraries and header files for developing applications that use %{name}.
+
 %prep
 %autosetup -n %{name}-%{version}/%{name}
 
@@ -36,7 +43,7 @@ EOF
 
 %reconfigure \
     --enable-shared \
-    --disable-static \
+    --enable-static \
     --enable-fixed-point \
     --enable-custom-modes \
     --disable-doc
@@ -53,6 +60,10 @@ EOF
 %defattr(-,root,root)
 %license COPYING
 %{_libdir}/libopus.so.*
+
+%files devel-static
+%defattr(-,root,root)
+%{_libdir}/*a
 
 %files devel
 %defattr(-,root,root)
