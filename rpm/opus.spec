@@ -20,7 +20,7 @@ have historically used high latency formats such as MP3, AAC, or Vorbis.
 
 %package devel
 Summary:  Development files for %{name}
-Requires: %{name} = %{version}-%{release}
+#Requires: %{name} = %{version}-%{release}
 
 %description devel
 This package contains libraries and header files for developing applications that use %{name}.
@@ -40,6 +40,8 @@ cat > "package_version" <<EOF
 AUTO_UPDATE=no
 PACKAGE_VERSION="$OPUS_VERSION"
 EOF
+
+export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 
 %reconfigure \
     --enable-shared \
